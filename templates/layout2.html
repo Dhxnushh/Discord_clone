@@ -5,18 +5,6 @@
     </head>
     <body>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-    
-                function send(username){
-                    var un=username;
-                    socket.send('join_room',{'username':un});
-                    alert('Sending message to room with username: ' + un);
-                }
-    
-                var socket = io.connect("/room");
-            })
-        </script>
         <nav class="navbar2">
             <ul>
                 <div>

@@ -103,8 +103,8 @@ def connect():
 @socketio.on('join_room', namespace='/room')
 def joinroom(data):
     username = session["user_id"]
-    friend = data['username']
-    print(data.keys())
+    friend = data
+    print(friend)
     rows = db.execute('select * from friends where id =? and friend = ?',session["id"],friend)
     room = rows[0]['room']
     join_room(room)

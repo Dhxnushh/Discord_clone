@@ -46,11 +46,11 @@
                 <p id="direct-messages-link" style="color: #c35f49; font-family: monospace;text-decoration: none; font-size: large;">Direct messages</p>
                 <ul style="padding: 5px; margin-bottom: 3px;">
                     {% for i in flist %}
-                    <a href="" onclick="send('{{i}}')" id="send" style="color: #c35f49; text-decoration: none;">
-                        <div id="fbox" onclick="send('{{i}}')">
+                    <button  href="" onclick="send('{{i}}')" id="send" style="color: #c35f49; text-decoration: none; background-color: transparent; outline: none; width: 100%; border: none;">
+                        <div id="fbox">
                             <p style="color: #c35f49; text-decoration: none;"> <img src="static/person.png"> {{ i }} </p>
                         </div>
-                    </a>
+                    </button>
                     {% endfor %}
                 </ul>
             </div>
@@ -76,17 +76,11 @@
         </article>
     </body>
     <script>
-        console.log(document.querySelector("#send"))
-        document.addEventListener('DOMContentLoaded', function() {
-
-            function send(username){
+        var socketio = io.connect("/room");
+        function send(username){
                 var un=username;
-                socketio.emit('join_room',{'username':un});
-                alert('Sending message to room with username: ' + un);
-                console.log("hello")
+                socketio.emit('join_room',un);
             }
-
-            var socket = io.connect("/room");
-        })
+        console.log(document.querySelector("#send"))
     </script>
 </html>

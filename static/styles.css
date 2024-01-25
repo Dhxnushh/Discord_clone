@@ -1,0 +1,81 @@
+body{
+    background-color: rgba(212, 212, 184, 0.705);
+    background-image: url(Login_page.jpg);
+}
+
+.navbar a{
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 7px;
+}
+.navbar ul{
+    list-style-type: none;
+    background-color: black;
+    margin: 0px;
+    padding: 0px;
+    border: solid;
+    border-radius: 25px;
+    border-width: 3px;
+    border-color: #c35f49;
+    text-align: center;
+    overflow: hidden;
+    display: block;
+}
+.navbar a:hover{
+    background-color: rgb(37, 36, 36);
+    color: #c35f49;
+}
+#y{
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 7px;
+    float: right;
+}
+#x{
+    color: rgb(240, 231, 231);
+    text-decoration: none;
+    display: block;
+    padding: 7px;
+    float: left;
+}
+.container{
+    background-color: #313131;
+    width: 300px;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 150px;
+    margin-left: 500px;
+    
+    box-shadow: 0 0 10px;
+}
+form{
+    color: white;
+    
+}
+#box{
+    background-color: black;
+    border-radius: 15px;
+    color: whitesmoke;
+    padding: 5px;
+    width: 250px;
+
+}
+#box:active{
+    background-color: #c35f49;
+}
+#submit{
+    border-radius: 15px;
+    background-color: #c35f49;
+    
+}
+#submit:hover{
+    background-color: #c77968;
+    scale: 1.1;
+}
+#submit:active{
+    background-color: #f40b0bcb;
+}
+
+

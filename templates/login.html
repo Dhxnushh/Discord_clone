@@ -1,0 +1,25 @@
+{% extends 'layout.html'%}
+{% block content%}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <h1 class="card-title">
+                    LOGIN
+                </h1>
+                <p style="color: #b5bac1;">Username: </p>
+                <input type="text" name="usernam" id="box" required placeholder="Name" minlength="6" maxlength="12">
+                <p style="color: #b5bac1;">Password: </p>
+                <input type="text" name="passwor" id="box" required placeholder="Password" minlength="6" maxlength="12">
+                <br>
+                <br>
+                <input type="submit" name="submit" id="submit">
+                <input type="reset" id="submit">
+                <br>
+                <br>
+                <a style="color:white; font-family: monospace;" href="/register" id="links">Need an account.Register here</a>
+            </form>
+        </div>
+    </div>    
+</div>
+{% endblock %}

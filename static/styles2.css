@@ -1,0 +1,99 @@
+*{
+    box-sizing: border-box;
+    scrollbar-color: dark;
+}
+body{
+    background-image: url(Login_page.jpg);
+    padding: 1px;
+}
+.navbar2 ul{
+background-color: #1f1f1f;
+border: groove;
+border-radius: 20px;
+border-color:#c35f49;
+width: 5%;
+height: 97%;
+padding: 10px;
+overflow: hidden;
+margin: 0px;
+position: fixed;
+text-align: center;
+box-shadow: 0 0 5px;
+}
+.navbar2 a{
+    color: white;
+    border-radius: 20px;
+    
+    
+}
+#a{
+    
+    padding: 5px;
+}
+section{
+    width: 30%;
+    border: groove;
+    height: 97%;
+    border-radius: 20px;
+    border-color: #c35f49;
+    background-color: #1f1f1f;
+    margin-left: 7%;
+    display: inline-block;
+    overflow: auto;
+    position: fixed;
+    text-align: center;
+    padding: 5px;
+    scrollbar-color: dark dark;
+    box-shadow: 0 0 5px;
+    
+}
+article{
+    width: 59.5%;
+    border: groove;
+    height: 97%;
+    border-radius: 20px;
+    border-color: #c35f49;
+    background-color: #1f1f1f;
+    margin-left: 39%;
+    display: inline-block;
+    overflow: auto;
+    position: fixed;
+    text-align: center;
+    padding: 5px;
+    box-shadow: 0 0 5px;
+}
+#fbox{
+    padding: 3px;
+    border-radius: 5px;
+    text-align: left;
+    color: #c35f49;
+    
+    
+}
+#fbox:hover{
+    background-color: #363535;
+    border: solid;
+    border-width: 1px;
+}
+#fbox:active{
+    background-color: #010409;
+    color: #f3360c;
+}
+/* Change the color of the scrollbar track */
+::-webkit-scrollbar {
+    width: 6px; /* Set the width of the scrollbar */
+    border-radius: 10px;
+    padding: 2px;
+    height: 10px;
+}
+
+/* Change the color of the scrollbar handle or thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #010409 ; /* Set the color of the scrollbar thumb */
+    border-radius: 20px;
+    height: 10px;
+
+}
+
+/* Change the color of the scrollbar track on hover */
+

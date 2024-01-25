@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="static/styles2.css">
+    </head>
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+    
+                function send(username){
+                    var un=username;
+                    socket.send('join_room',{'username':un});
+                    alert('Sending message to room with username: ' + un);
+                }
+    
+                var socket = io.connect("/room");
+            })
+        </script>
+        <nav class="navbar2">
+            <ul>
+                <div>
+                    <a href="" id="menu-link"><img src="static/menu.png"></a>
+                </div>
+                <div>
+                    <a href="" id="profile-link"><img src="static/profile.png"></a>
+                </div>
+                <div>
+                    <a href="" id="settings-link"><img src="static/settings.png"></a>
+                </div>
+                <div>
+                    <a href="/logout" id="logout-link"><img src="static/logout.png"></a>
+                </div>
+            </ul>
+        </nav>
+        <section id="box">
+            <div>
+                <a href="#" id="add-friend-link" style="color: #c35f49; font-family: monospace;text-decoration: none; font-size: large;">ADD FRIEND</a>
+            </div>
+            <br>
+            <div>
+                <form autocomplete="off" method="post">
+                    <img src="static/add friend.png">
+                    <input type="text" name="friend" id="textbox" placeholder="username" style="background-color: black;color: #c35f49; border-radius: 20px; padding: 5px;">
+                    <input type="submit" name="friendsubmit" style="color: black;background-color: #c35f49; border-radius: 20px;" placeholder="ADD">
+                </form>
+                <ul>
+                    {% if error %}
+                    <h3 style="color: aliceblue; font-family: monospace; text-align: center;">{{error}}</h3>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <br>
+            <br>
+            <hr>
+            <div style="padding-bottom: 10px;">
+                <p id="direct-messages-link" style="color: #c35f49; font-family: monospace;text-decoration: none; font-size: large;">Direct messages</p>
+                <ul style="padding: 5px; margin-bottom: 3px;">
+                    {% for i in flist %}
+                    <a href="" onclick="send('{{i}}')" id="send" style="color: #c35f49; text-decoration: none;">
+                        <div id="fbox" onclick="send('{{i}}')">
+                            <p style="color: #c35f49; text-decoration: none;"> <img src="static/person.png"> {{ i }} </p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div style="position: fixed; bottom: 14px; text-align: center; color: aliceblue;  background-color: #0d1117; border-radius: 10px; padding: 5px; width: 28.5%;">
+                <p style="color: #c35f49; font-family: monospace; text-align: center;">Your logged in as: {{username}}</p>
+            </div>
+        </section>
+        <article>
+            <div>
+                <a href="#" id="message-link" style="color: #c35f49; font-family: monospace; text-decoration: none; font-size: large;">MESSAGE</a>
+            </div>
+            <div>
+                {% block content %} {% endblock %}
+            </div>
+
+            <div style="position:fixed;bottom: 25px; text-align: center; float: right;padding: auto;">
+                <form>
+                    <input type="text" name="sendmsg" id="textbox" placeholder="Send message....." style="background-color: black;color: #c35f49; border-radius: 20px; padding: 7px; width: 52vw; height: auto;">
+                    <button id="send_button" style="color: black;background-color: #c35f49;border-radius: 20px;">SEND</button>
+                </form>
+            </div>
+        </article>
+    </body>
+    <script>
+        console.log(document.querySelector("#send"))
+        document.addEventListener('DOMContentLoaded', function() {
+
+            function send(username){
+                var un=username;
+                socketio.emit('join_room',{'username':un});
+                alert('Sending message to room with username: ' + un);
+                console.log("hello")
+            }
+
+            var socket = io.connect("/room");
+        })
+    </script>
+</html>

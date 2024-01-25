@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="static/styles.css">
+    </head>
+    <nav class="navbar">
+        <ul>
+            <div id="x">
+                <a style="border-radius: 20px;" href="/home">Home</a>
+            </div>
+            <div id="y">
+                <a  style="border-radius: 20px;" href="/">Login</a>
+            </div>
+            <div id="y">
+                <a style="border-radius: 20px;"href="/register">Register</a>
+            </div>
+        </ul>
+    </nav>
+
+    <main style="text-align: center;">
+        <div class="content">
+            {% block content %} {% endblock %}
+        </div>
+        <ul>
+            {%if error%}
+            <h3 style="color: aliceblue; font-family: monospace; text-align: center;">{{error}}</h3>
+            {%endif%}
+        </ul>
+    </main>
+    <br>
+    <br>
+    <br>
+    <br>    
+    <hr style="color: black;">
+    <footer style="font-family: monospace; position: sticky;">
+        <p style="color: white;">Whisper &copy copyright reserved</p>
+    </footer>
+</html>

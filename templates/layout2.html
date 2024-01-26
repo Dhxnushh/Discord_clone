@@ -29,7 +29,7 @@
             <div>
                 <form autocomplete="off" method="post">
                     <img src="static/add friend.png">
-                    <input type="text" name="friend" id="textbox" placeholder="username" style="background-color: black;color: #c35f49; border-radius: 20px; padding: 5px;">
+                    <input type="text" name="friend" id="textbox1" placeholder="username" style="background-color: black;color: #c35f49; border-radius: 20px; padding: 5px;">
                     <input type="submit" name="friendsubmit" style="color: black;background-color: #c35f49; border-radius: 20px;" placeholder="ADD">
                 </form>
                 <ul>
@@ -46,7 +46,7 @@
                 <p id="direct-messages-link" style="color: #c35f49; font-family: monospace;text-decoration: none; font-size: large;">Direct messages</p>
                 <ul style="padding: 5px; margin-bottom: 3px;">
                     {% for i in flist %}
-                    <button  href="" onclick="send('{{i}}')" id="send" style="color: #c35f49; text-decoration: none; background-color: transparent; outline: none; width: 100%; border: none;">
+                    <button  name="lol" onclick="reload('{{i}}')" id="send" style="color: #c35f49; text-decoration: none; background-color: transparent; outline: none; width: 100%; border: none;">
                         <div id="fbox">
                             <p style="color: #c35f49; text-decoration: none;"> <img src="static/person.png"> {{ i }} </p>
                         </div>
@@ -61,26 +61,79 @@
         </section>
         <article>
             <div>
-                <a href="#" id="message-link" style="color: #c35f49; font-family: monospace; text-decoration: none; font-size: large;">MESSAGE</a>
+                <a href="" id="message-link" style="color: #c35f49; font-family: monospace; text-decoration: none; font-size: large;">MESSAGE</a>
             </div>
+            <br>
             <div>
-                {% block content %} {% endblock %}
+                <ul id="activity"></ul>
+            </div>
+            <hr>
+            <div class="messages" id="messages" style="margin-left: 3%;" >
+                
             </div>
 
             <div style="position:fixed;bottom: 25px; text-align: center; float: right;padding: auto;">
-                <form>
-                    <input type="text" name="sendmsg" id="textbox" placeholder="Send message....." style="background-color: black;color: #c35f49; border-radius: 20px; padding: 7px; width: 52vw; height: auto;">
-                    <button id="send_button" style="color: black;background-color: #c35f49;border-radius: 20px;">SEND</button>
-                </form>
+                <form onsubmit="sendmsg(event)">
+                    <input autocomplete="off"  type="text" id="textbox" placeholder="Send message....." style="background-color: black;color: #c35f49; border-radius: 20px; padding: 7px; width: 52vw; height: auto;">
+                    <input type="submit" id="send_button" style="color: black;background-color: #c35f49;border-radius: 20px;">
+                </form>    
             </div>
         </article>
     </body>
     <script>
         var socketio = io.connect("/room");
+        socketio.on('disconnect')
+
+        function reload(username){
+            send(username);
+        }
+
         function send(username){
                 var un=username;
                 socketio.emit('join_room',un);
             }
-        console.log(document.querySelector("#send"))
+
+        const messages = document.getElementById('messages')
+        
+        const createmsg = (username1,msg) =>{
+            const content = `
+            <div>
+                <span style="font-family: monospace; color: aliceblue; text-align: left;">
+                    <p style="text-align: left; color: #c35f49;">${username1}:</p> <p style="text-align: left"> ${msg}</p>
+                </span>
+            </div>
+            `;
+            messages.innerHTML += content;
+        };
+
+        const sendmsg = (event) => {
+            event.preventDefault();
+            const message = document.getElementById('textbox')
+            if (message.value =="") return;
+            socketio.emit('sendmsg',message.value);
+            message.value="";
+        };
+
+        const act = document.getElementById("activity")
+
+        const activity = (username2,message2,online) =>{
+            const status = `
+            <div>
+                <strong style="text-align:left; color: #32cd32; font-family: monospace;">${username2} is online.</strong>
+            </div>
+            `;
+            act.innerHTML += status;
+        }
+
+        socketio.on('activity', (data) =>{
+            activity(data.name,data.msg,data.online);
+        })
+
+        socketio.on('message', (data) => {
+            createmsg(data.name,data.msg);
+        });
+
+        
+        
     </script>
 </html>

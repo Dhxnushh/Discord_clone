@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, session, redirect, g
-from flask_socketio import join_room,leave_room,SocketIO,send,emit
+from flask_socketio import join_room,leave_room ,SocketIO,send,emit
 from cs50 import SQL
 app = Flask(__name__)
-app.config['DATABASE'] = 'user.db'
 db = SQL("sqlite:///user.db")
 app.config['SECRET_KEY'] = 'DISCORD'
 socketio = SocketIO(app)
+
+
 
 @app.route("/", methods=["POST", "GET"])
 def login():
@@ -21,7 +22,6 @@ def login():
         if password==passwordsql:
             session["user_id"] = rows[0]["username"]
             session["id"] = rows[0]['id']
-            print(rows)
             return redirect("/home")
         else:
             return render_template("login.html",error="Password is incorrect")
@@ -36,7 +36,6 @@ def register():
         username = request.form.get("usernam")
         password = request.form.get("passwor")
         cpassword = request.form.get("cpassword")
-        print(username)
 
         if cpassword != password:
             return render_template("register.html", error="Passwords do not match.")
@@ -90,13 +89,12 @@ def home():
     fdict = db.execute('select friend from friends where id = ?',rows2[0]['id'] )
     flist=[]
     for i in fdict:
-        print(i)
         flist+=(list(i.values()))            
     return render_template("layout2.html",username=username,flist=flist)
 
 
 @socketio.on('connect', namespace='/room')
-def connect():
+def connect(auth):
     print("Connected")
 
 
@@ -104,14 +102,35 @@ def connect():
 def joinroom(data):
     username = session["user_id"]
     friend = data
-    print(friend)
     rows = db.execute('select * from friends where id =? and friend = ?',session["id"],friend)
     room = rows[0]['room']
+    session['room'] = room
     join_room(room)
-    print("joined room")
+    emit('activity', {'name':username,'msg':"is online"}, to=room)
+
+@socketio.on('disconnect', namespace='/room')
+def leave_room():
+    username = session["user_id"]
+    room = session["room"]
+    leave_room(room)
+    emit('message',{"name":username,"msg":"is offline"}, to=room)
+    print("disconnected")
 
 
+
+@socketio.on('sendmsg',namespace="/room")
+def sendmsg(data):
+    username = session["user_id"]
+    room = session['room']
+    msg = data
+    content = {
+        'name':username,
+        'msg':msg
+    }
+    emit('message',content,to=room)
+    print(msg)
     
+
 if __name__ == "__main__":
     socketio.run(app)
 

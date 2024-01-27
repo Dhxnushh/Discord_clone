@@ -45,9 +45,9 @@ body{
     width: 300px;
     border-radius: 20px;
     padding: 10px;
-    margin-top: 150px;
-    margin-left: 500px;
-    
+    margin-top: 10%;
+    margin-left: 40%;
+    overflow: hidden;
     box-shadow: 0 0 10px;
 }
 form{
@@ -78,4 +78,18 @@ form{
     background-color: #f40b0bcb;
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+    padding: 2px;
+    height: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: #010409 ;
+    border-radius: 20px;
+    height: 10px;
+
+}
 

@@ -79,21 +79,21 @@ article{
     background-color: #010409;
     color: #f3360c;
 }
-/* Change the color of the scrollbar track */
+
 ::-webkit-scrollbar {
-    width: 6px; /* Set the width of the scrollbar */
+    width: 6px; 
     border-radius: 10px;
     padding: 2px;
     height: 10px;
 }
 
-/* Change the color of the scrollbar handle or thumb */
+
 ::-webkit-scrollbar-thumb {
-    background-color: #010409 ; /* Set the color of the scrollbar thumb */
+    background-color: #010409 ; 
     border-radius: 20px;
     height: 10px;
 
 }
 
-/* Change the color of the scrollbar track on hover */
+
 
